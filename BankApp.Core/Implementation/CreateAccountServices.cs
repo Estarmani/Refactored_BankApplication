@@ -31,7 +31,7 @@ namespace BankApp.Core.Implementation
                 Random newAccount = new Random();
                 accNo = newAccount.Next(100000000, 299999999);
                 string result = "0" + accNo.ToString();
-                RegisterDtos customer = new RegisterDtos();
+                Customer customer = new Customer();
                 var account = new Accounts
                 {
                     AccountBal = 1000,
@@ -52,7 +52,7 @@ namespace BankApp.Core.Implementation
                 Random newAccount = new Random();
                 accNo = newAccount.Next(100000000, 199999999);
                 string result = "1" + accNo.ToString();
-                RegisterDtos customer = new RegisterDtos();
+                Customer customer = new Customer();
                 var account = new Accounts
                 {
                     AccountBal = 0,
