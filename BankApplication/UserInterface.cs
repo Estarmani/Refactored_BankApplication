@@ -36,23 +36,28 @@ namespace BankApplication
                 if (Option == "1")
                 {
                     isValid = true;
+                    var writer = new StreamWriter("Database.txt", true);
                     var request = new RegisterDtos();
                     Console.WriteLine("\n                          ALLSTAR BANKING APPLICATION\n                          ");
                     Console.Write("\n\n\tEnter your First Name: ");
                     var firstName = Console.ReadLine();
-                    request.FirstName = firstName;
+                    writer.WriteLine(firstName);
+                    //request.FirstName = firstName;
 
                     Console.Write("\n\tEnter your Last Name: ");
                     var lastName = Console.ReadLine();
-                    request.LastName = lastName;
+                    writer.WriteLine(lastName);
+                    //request.LastName = lastName;
 
                     Console.Write("\n\tEnter your Email: ");
                     var email = Console.ReadLine();
-                    request.Email = email;
+                    writer.WriteLine(email);
+                    //request.Email = email;
 
                     Console.Write("\n\tEnter your Password: ");
                     var password = Console.ReadLine();
-                    request.Password = password;
+                    writer.WriteLine(password);
+                    //request.Password = password;
                     _customerServices.Register(request);
                     Console.Clear();
                     Console.WriteLine("Registration successful");
