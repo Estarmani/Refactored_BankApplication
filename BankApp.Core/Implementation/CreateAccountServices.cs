@@ -15,7 +15,7 @@ namespace BankApp.Core.Implementation
         string option { get; set; }
         int accNo { get; set; }
        
-        public string CreateAccountNumber()
+        public string CreateAccountNumber(Customer loggedInCustomer)
         {
 
 
@@ -31,13 +31,13 @@ namespace BankApp.Core.Implementation
                 Random newAccount = new Random();
                 accNo = newAccount.Next(100000000, 299999999);
                 string result = "0" + accNo.ToString();
-                Customer customer = new Customer();
+                //Customer customer = new Customer();
                 var account = new Accounts
                 {
                     AccountBal = 1000,
                     AccountNo = result,
                     accountType = Data.AccountType.savings,
-                    FullName = customer.FirstName + " " + customer.LastName,
+                    FullName = loggedInCustomer.FirstName + " " + loggedInCustomer.LastName,
                 };
                 NewAccount.Add(account);
                 Console.WriteLine("\nSavings Account created successfully");
@@ -58,7 +58,7 @@ namespace BankApp.Core.Implementation
                     AccountBal = 0,
                     AccountNo = result,
                     accountType = Data.AccountType.current,
-                    FullName = customer.FirstName + " " + customer.LastName,
+                    FullName = loggedInCustomer.FirstName + " " + loggedInCustomer.LastName,
                 };
                 NewAccount.Add(account);
                 Console.WriteLine("\nCurrent Account created successfully");
@@ -67,7 +67,7 @@ namespace BankApp.Core.Implementation
             }
             else
             {
-                CreateAccountNumber();
+                CreateAccountNumber(loggedInCustomer);
             }
             return string.Empty;
 

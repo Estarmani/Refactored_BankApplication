@@ -10,7 +10,7 @@ namespace BankApp.Core.INTERFACE
 {
     public interface ICustomerServices
     {
-        Customer? customer { get; set; }
+       // Customer? customer { get; set; }
         void Register(RegisterDtos register);
         void Login(string email, string password);
         void Logout();

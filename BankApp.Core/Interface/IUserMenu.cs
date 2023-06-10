@@ -1,7 +1,9 @@
-﻿namespace BankApp.Core.Interface
+﻿using BankApp.Data;
+
+namespace BankApp.Core.Interface
 {
     public interface IUserMenu
     {
-        void Menu();
+        void Menu(Customer loggedInCustomer);
     }
 }

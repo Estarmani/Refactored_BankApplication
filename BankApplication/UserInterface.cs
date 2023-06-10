@@ -56,7 +56,7 @@ namespace BankApplication
                     var password = Console.ReadLine();
                     request.Password = password;
                     _customerServices.Register(request);
-                    Console.Clear();
+                   // Console.Clear();
                     Console.WriteLine("Registration successful");
 
                 }

@@ -24,18 +24,27 @@ namespace BankApp.Core.IMPLEMENTATION
 
         public void Login(string email, string password)
         {
-            if(customer.Email == email && customer.Password == password)
+            using (StreamReader reader = new StreamReader("Database.txt"))
             {
-                Console.Clear();
-                Console.WriteLine("Login Successful.");
-                _UserMenu.Menu();
-                
-            }
-            else
-            {
-                Console.Clear() ;
-                Console.WriteLine("Email or passwsord incorrect.");
-                
+                string Line;
+                while ((Line = reader.ReadLine()) != null)
+                {
+
+                    if (Line.Contains(email) && Line.Contains(password))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Login Successful.");
+
+                        _UserMenu.Menu(customer);
+
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Email or passwsord incorrect.");
+
+                    }
+                }
             }
         }
 
@@ -60,7 +69,7 @@ namespace BankApp.Core.IMPLEMENTATION
 
             using (StreamWriter writer = new StreamWriter("Database.txt", true))
             {
-                writer.WriteLine($"{customer.FirstName} | {customer.LastName} | {customer.Email} | {customer.Password}");
+                writer.WriteLine($"{customer.FirstName, -10} | {customer.LastName, -10} | {customer.Email, -10} | {customer.Password,-10}");
             }
             Console.WriteLine($"customer {customer.FirstName} has been added to the file.");
         }

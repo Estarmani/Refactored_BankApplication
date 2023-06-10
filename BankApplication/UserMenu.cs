@@ -18,7 +18,7 @@ namespace BankApplication
             _createAccountServices = createAccountServices;
         }
         internal string option;
-        public void Menu()
+        public void Menu(Customer loggedInCustomer)
         {
 
             Console.WriteLine("\n 1: Creat Account\n 2: Check Balance\n 3: Deposit\n 4: Withdrawal");
@@ -28,33 +28,33 @@ namespace BankApplication
 
             if (option == "1")
             {
-                _createAccountServices.CreateAccountNumber();
-                Menu();
+                _createAccountServices.CreateAccountNumber(loggedInCustomer);
+                Menu(loggedInCustomer);
             }
             else if (option == "2")
             {
                 _accountServices.GetAccountBalance();
-                Menu();
+                Menu(loggedInCustomer);
             }
             else if (option == "3")
             {
                 _accountServices.Deposit();
-                Menu();
+                Menu(loggedInCustomer);
             }
             else if (option == "4")
             {
                 _accountServices.Withdrawal();
-                Menu();
+                Menu(loggedInCustomer);
             }
             else if (option == "5")
             {
                 _accountServices.Transfer();
-                Menu();
+                Menu(loggedInCustomer);
             }
             else if (option == "6")
             {
                 _accountServices.AccountDetailsTable();
-                Menu();
+                Menu(loggedInCustomer);
             }
             else if (option == "7")
             {
@@ -69,7 +69,7 @@ namespace BankApplication
             }
             else
             {
-                Menu();
+                Menu(loggedInCustomer);
             }
         }
     }
