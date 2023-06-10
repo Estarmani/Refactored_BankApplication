@@ -124,7 +124,7 @@ namespace BankApp.Core.Implementation
 
             foreach (Accounts acc in CreateAccountServices.NewAccount)
             {
-                printdetails = $"|  {acc.FullName,-14}  |  {acc.AccountNo,-16}  |  {acc.accountType,-11}  |  {acc.AccountBal,-17} |\n";
+                printdetails += $"|  {acc.FullName,-14}  |  {acc.AccountNo,-16}  |  {acc.accountType,-11}  |  {acc.AccountBal,-17} |\n";
             }
             return printdetails;
         }

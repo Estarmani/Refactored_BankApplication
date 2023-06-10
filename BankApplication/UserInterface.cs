@@ -1,5 +1,7 @@
-﻿using BankApp.Core.Interface;
+﻿using BankApp.Core.IMPLEMENTATION;
+using BankApp.Core.Interface;
 using BankApp.Core.INTERFACE;
+using BankApp.Data;
 using BankApp.Data.UserDtos;
 using System;
 using System.Collections.Generic;
@@ -36,28 +38,23 @@ namespace BankApplication
                 if (Option == "1")
                 {
                     isValid = true;
-                    var writer = new StreamWriter("Database.txt", true);
                     var request = new RegisterDtos();
                     Console.WriteLine("\n                          ALLSTAR BANKING APPLICATION\n                          ");
                     Console.Write("\n\n\tEnter your First Name: ");
                     var firstName = Console.ReadLine();
-                    writer.WriteLine(firstName);
-                    //request.FirstName = firstName;
+                    request.FirstName = firstName;
 
                     Console.Write("\n\tEnter your Last Name: ");
                     var lastName = Console.ReadLine();
-                    writer.WriteLine(lastName);
-                    //request.LastName = lastName;
+                    request.LastName = lastName;
 
                     Console.Write("\n\tEnter your Email: ");
                     var email = Console.ReadLine();
-                    writer.WriteLine(email);
-                    //request.Email = email;
+                    request.Email = email;
 
                     Console.Write("\n\tEnter your Password: ");
                     var password = Console.ReadLine();
-                    writer.WriteLine(password);
-                    //request.Password = password;
+                    request.Password = password;
                     _customerServices.Register(request);
                     Console.Clear();
                     Console.WriteLine("Registration successful");

@@ -57,6 +57,12 @@ namespace BankApp.Core.IMPLEMENTATION
                 Email = register.Email,
                 Password = register.Password
             };
+
+            using (StreamWriter writer = new StreamWriter("Database.txt", true))
+            {
+                writer.WriteLine($"{customer.FirstName} | {customer.LastName} | {customer.Email} | {customer.Password}");
+            }
+            Console.WriteLine($"customer {customer.FirstName} has been added to the file.");
         }
     }
 }
