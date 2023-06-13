@@ -19,8 +19,6 @@ namespace BankApplication
         {
 
             _customerServices = customerServices;
-            
-
         }
         public static string? Option { get; set; }
         public void Run()

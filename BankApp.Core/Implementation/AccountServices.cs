@@ -7,31 +7,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankApp;
+using System.Security.Principal;
 
 namespace BankApp.Core.Implementation
 {
     public class AccountServices : IAccountServices
     {
-       
+       List<Activity> GetActivities = new List<Activity>();
         public void Deposit()
         {
-           
+            using (StreamReader reader = new StreamReader("Accountdata.txt"))
+            {
+
                 Console.Clear();
+                string line;
                 Console.Write("\nEnter account to deposit: \n");
                 var depositAccount = Console.ReadLine();
                 var account = CreateAccountServices.NewAccount.FirstOrDefault(x => x.AccountNo == depositAccount);
 
                 Console.Write("Enter amount to deposit: ");
                 var depositAmount = decimal.Parse(Console.ReadLine());
-                if (account == null)
+
+
+                while ((line = reader.ReadLine()) != null)
                 {
-                    Console.WriteLine("Account does not exist.");
+
+                    if (line.Contains(depositAccount))
+                    {
+                        Console.WriteLine("Account does not exist.");
+                    }
+
+                    account.AccountBal += depositAmount;
                 }
-              account.AccountBal += depositAmount;
-              var index = CreateAccountServices.NewAccount.FindIndex(x => x.AccountNo == depositAccount);
-              CreateAccountServices.NewAccount[index] = account;
-              Console.Clear() ;
-              Console.WriteLine("Deposit successful");
+
+                var index = CreateAccountServices.NewAccount.FindIndex(x => x.AccountNo == depositAccount);
+                CreateAccountServices.NewAccount[index] = account;
+                Console.Clear();
+                Console.WriteLine("Deposit successful");
+
+                var activity = new Activity
+                {
+                    ActivityDate = DateTime.Now,
+                    Description = "deposit",
+                    ActivityAmount = depositAmount,
+                     ActivityBalance = account.AccountBal
+                };
+                GetActivities.Add(activity);
+            }
+
+
         }
 
         public void GetAccountBalance()
@@ -75,6 +99,15 @@ namespace BankApp.Core.Implementation
                 Console.Clear();
                 Console.WriteLine("An error occured.");
             }
+
+            var activity = new Activity
+            {
+                ActivityDate = DateTime.Now,
+                Description = $"Transfered to {accountTo}",
+                ActivityAmount = transferAmount,
+                ActivityBalance = accountFrom.AccountBal
+            };
+            GetActivities.Add(activity);
         }
 
         public void Withdrawal()
@@ -105,6 +138,15 @@ namespace BankApp.Core.Implementation
                 CreateAccountServices.NewAccount[index] = account;
                 Console.Clear();
                 Console.WriteLine("Withdrawal successful.");
+
+                var activity = new Activity
+                {
+                    ActivityDate = DateTime.Now,
+                    Description = "Withdrawal",
+                    ActivityAmount = withdrawalAmount,
+                    ActivityBalance = account.AccountBal
+                };
+                GetActivities.Add(activity);
             }
         }
         public void AccountDetailsTable()
@@ -113,9 +155,19 @@ namespace BankApp.Core.Implementation
             Console.WriteLine("\n\n\t|------------------|--------------------|---------------|--------------------|");
             Console.WriteLine("\t|   FULLNAME       |   ACCOUNT NUMBER   |  ACCOUNT TYPE |  ACCOUNT BALANCE   |");
             Console.WriteLine("\t|------------------|--------------------|---------------|--------------------|");
-            Console.Write($"\t{AccountDetails()}");
+            Console.Write($"\t{AccountDetails()}\t");
             Console.WriteLine("\t|------------------|--------------------|---------------|--------------------|");
 
+        }
+        public void StatementOfAccountTable()
+        {
+            
+                Console.WriteLine("\n\n\t|------------------|--------------------|---------------|--------------------|");
+                Console.WriteLine("\t|       DATE       |    DESCRIPTION     |     AMOUNT    |       BALANCE      |");
+                Console.WriteLine("\t|------------------|--------------------|---------------|--------------------|");
+                Console.Write($"\t{AccountStatement()}\t");
+                Console.WriteLine("\t|------------------|--------------------|---------------|--------------------|");
+            
         }
 
         public string AccountDetails()
@@ -125,6 +177,15 @@ namespace BankApp.Core.Implementation
             foreach (Accounts acc in CreateAccountServices.NewAccount)
             {
                 printdetails += $"|  {acc.FullName,-14}  |  {acc.AccountNo,-16}  |  {acc.accountType,-11}  |  {acc.AccountBal,-17} |\n";
+            }
+            return printdetails;
+        }
+        public string AccountStatement()
+        {
+            string printdetails = string.Empty;
+            foreach(Activity statement in GetActivities)
+            {
+                printdetails += $"|{statement.ActivityDate, -14} | {statement.Description, -16} | {statement.ActivityAmount, -11} | {statement.ActivityBalance, -17} |\n";
             }
             return printdetails;
         }

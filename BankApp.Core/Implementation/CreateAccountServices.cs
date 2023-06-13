@@ -29,8 +29,8 @@ namespace BankApp.Core.Implementation
             {
                 Console.Clear();
                 Random newAccount = new Random();
-                accNo = newAccount.Next(100000000, 299999999);
-                string result = "0" + accNo.ToString();
+                accNo = newAccount.Next(10000000, 29999999);
+                string result = "00" + accNo.ToString();
                 //Customer customer = new Customer();
                 var account = new Accounts
                 {
@@ -40,6 +40,11 @@ namespace BankApp.Core.Implementation
                     FullName = loggedInCustomer.FirstName + " " + loggedInCustomer.LastName,
                 };
                 NewAccount.Add(account);
+
+                using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
+                {
+                    writer.WriteLine($"{account.FullName,-10}  |  {account.accountType,-10}  |  {account.AccountNo,-10}  |  {account.AccountBal,-10}|\n");
+                }
                 Console.WriteLine("\nSavings Account created successfully");
                 Console.WriteLine(result);
                 return result;
@@ -52,7 +57,7 @@ namespace BankApp.Core.Implementation
                 Random newAccount = new Random();
                 accNo = newAccount.Next(100000000, 199999999);
                 string result = "1" + accNo.ToString();
-                Customer customer = new Customer();
+                //Customer customer = new Customer();
                 var account = new Accounts
                 {
                     AccountBal = 0,
@@ -61,6 +66,11 @@ namespace BankApp.Core.Implementation
                     FullName = loggedInCustomer.FirstName + " " + loggedInCustomer.LastName,
                 };
                 NewAccount.Add(account);
+
+                using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
+                {
+                    writer.WriteLine($"{account.FullName,-10} | {account.accountType,-10} | {account.AccountNo,-10} | {account.AccountBal,-10}");
+                }
                 Console.WriteLine("\nCurrent Account created successfully");
                 Console.WriteLine(result);
                 return result;

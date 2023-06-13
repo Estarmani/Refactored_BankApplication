@@ -10,5 +10,7 @@ namespace BankApp.Data
     {
         public string Description { get; set; }
         public DateTime ActivityDate { get; set; }
+        public decimal ActivityAmount { get; set; }
+        public decimal ActivityBalance { get; set; }
     }
 }

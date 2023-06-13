@@ -58,7 +58,9 @@ namespace BankApplication
             }
             else if (option == "7")
             {
-                Console.WriteLine("Service Unavailable.");
+                _accountServices.StatementOfAccountTable();
+                Menu(loggedInCustomer);
+               // Console.WriteLine("Service Unavailable.");
             }
             else if (option == "8")
             {

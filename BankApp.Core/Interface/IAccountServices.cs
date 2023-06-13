@@ -15,6 +15,7 @@ namespace BankApp.Core.Interface
         public void GetAccountBalance();
         public void AccountDetailsTable();
         public string AccountDetails();
-
+        public string AccountStatement();
+        public void StatementOfAccountTable();
     }
 }
