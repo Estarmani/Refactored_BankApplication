@@ -72,6 +72,7 @@ namespace BankApp.Core.Implementation
             Console.Clear();
             Console.WriteLine("\n Enter account number to view balance");
             var accountNumber = Console.ReadLine();
+           // var MyFetchedList = Helper.ReadFromAccountFile("Accountdata.txt");
             var account = CreateAccountServices.NewAccount.FirstOrDefault(x => x.AccountNo == accountNumber);
 
             if (account == null)
@@ -127,6 +128,7 @@ namespace BankApp.Core.Implementation
             var account = CreateAccountServices.NewAccount.Where(x => x.AccountNo == withdrawalAccount).FirstOrDefault();
             Console.Write("Enter amount to withdraw: ");
             var withdrawalAmount = decimal.Parse(Console.ReadLine());
+
 
             if (account == null)
             {
