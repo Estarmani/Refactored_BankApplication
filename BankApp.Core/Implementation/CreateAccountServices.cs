@@ -43,7 +43,7 @@ namespace BankApp.Core.Implementation
 
                 using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
                 {
-                    writer.WriteLine($"{account.FullName,-10}  |  {account.accountType,-10}  |  {account.AccountNo,-10}  |  {account.AccountBal,-10}|\n");
+                    writer.WriteLine($"|  {account.FullName,-10}  |  {account.accountType,-10}  |  {account.AccountNo,-10}  |  {account.AccountBal,-10}  |\n");
                 }
                 Console.WriteLine("\nSavings Account created successfully");
                 Console.WriteLine(result);
@@ -60,7 +60,7 @@ namespace BankApp.Core.Implementation
                 //Customer customer = new Customer();
                 var account = new Accounts
                 {
-                    AccountBal = 0,
+                    AccountBal = 0.0M,
                     AccountNo = result,
                     accountType = Data.AccountType.current,
                     FullName = loggedInCustomer.FirstName + " " + loggedInCustomer.LastName,
@@ -69,7 +69,7 @@ namespace BankApp.Core.Implementation
 
                 using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
                 {
-                    writer.WriteLine($"{account.FullName,-10} | {account.accountType,-10} | {account.AccountNo,-10} | {account.AccountBal,-10}");
+                    writer.WriteLine($"| {account.FullName} | {account.accountType} | {account.AccountNo} | {account.AccountBal} |");
                 }
                 Console.WriteLine("\nCurrent Account created successfully");
                 Console.WriteLine(result);

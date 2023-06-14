@@ -14,46 +14,55 @@ namespace BankApp.Core.Implementation
     public class AccountServices : IAccountServices
     {
        List<Activity> GetActivities = new List<Activity>();
-        public void Deposit()
+        public async void Deposit()
         {
-            using (StreamReader reader = new StreamReader("Accountdata.txt"))
+            
+
+            Console.Clear();
+            string line;
+            Console.Write("\nEnter account to deposit: \n");
+            var depositAccount = Console.ReadLine();
+            // var account = CreateAccountServices.NewAccount.FirstOrDefault(x => x.AccountNo == depositAccount);
+
+            Console.Write("Enter amount to deposit: ");
+            var depositAmount = decimal.Parse(Console.ReadLine());
+
+
+            // var index = CreateAccountServices.NewAccount.FindIndex(x => x.AccountNo == depositAccount);
+            //CreateAccountServices.NewAccount[index] = account;
+             var MyFetchedList = Helper.ReadFromAccountFile("Accountdata.txt");
+
+            var accountToUpdate = MyFetchedList.FirstOrDefault(acc => acc.AccountNo == depositAccount);
+            if (accountToUpdate is null)
             {
-
                 Console.Clear();
-                string line;
-                Console.Write("\nEnter account to deposit: \n");
-                var depositAccount = Console.ReadLine();
-                var account = CreateAccountServices.NewAccount.FirstOrDefault(x => x.AccountNo == depositAccount);
-
-                Console.Write("Enter amount to deposit: ");
-                var depositAmount = decimal.Parse(Console.ReadLine());
-
-
-                while ((line = reader.ReadLine()) != null)
-                {
-
-                    if (line.Contains(depositAccount))
-                    {
-                        Console.WriteLine("Account does not exist.");
-                    }
-
-                    account.AccountBal += depositAmount;
+                Console.WriteLine("Account number does not exist.");
+            }
+            else
+            {
+                accountToUpdate.AccountBal += depositAmount;
+                Console.WriteLine("Deposit successful");
+            }
+            using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
+            {
+                foreach (var account in MyFetchedList)
+                { writer.WriteLine($"|  {account.FullName,-10}  |  {account.accountType,-10}  |  {account.AccountNo,-10}  |  {account.AccountBal,-10}  |");
                 }
 
-                var index = CreateAccountServices.NewAccount.FindIndex(x => x.AccountNo == depositAccount);
-                CreateAccountServices.NewAccount[index] = account;
-                Console.Clear();
-                Console.WriteLine("Deposit successful");
-
-                var activity = new Activity
-                {
-                    ActivityDate = DateTime.Now,
-                    Description = "deposit",
-                    ActivityAmount = depositAmount,
-                     ActivityBalance = account.AccountBal
-                };
-                GetActivities.Add(activity);
             }
+
+
+
+
+            //var activity = new Activity
+            //    {
+            //        ActivityDate = DateTime.Now,
+            //        Description = "deposit",
+            //        ActivityAmount = depositAmount,
+            //        // ActivityBalance = account.AccountBal
+            //    };
+            //    GetActivities.Add(activity);
+            
 
 
         }

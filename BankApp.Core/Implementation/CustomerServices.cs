@@ -69,7 +69,7 @@ namespace BankApp.Core.IMPLEMENTATION
 
             using (StreamWriter writer = new StreamWriter("Database.txt", true))
             {
-                writer.WriteLine($"{customer.FirstName, -10} | {customer.LastName, -10} | {customer.Email, -10} | {customer.Password,-10}");
+                writer.WriteLine($"| {customer.FirstName, -10} | {customer.LastName, -10} | {customer.Email, -10} | {customer.Password,-10} |");
             }
             Console.WriteLine($"customer {customer.FirstName} has been added to the file.");
         }

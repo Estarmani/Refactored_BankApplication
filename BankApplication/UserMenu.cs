@@ -36,7 +36,7 @@ namespace BankApplication
                 _accountServices.GetAccountBalance();
                 Menu(loggedInCustomer);
             }
-            else if (option == "3")
+            else if (option == "20")
             {
                 _accountServices.Deposit();
                 Menu(loggedInCustomer);
