@@ -42,34 +42,7 @@ namespace BankApp.Core.Implementation
                
             }
             
-           /* using (var reader = new StreamReader(filepath))
-            {
-                string line;
-                line = reader.ReadToEnd();
-                while (line != null)
-                {
-                    string[] fields = line.Split('|');
-                    if (fields.Length >= 4)
-                    {
-                        var name = fields[1].Trim();
-                        var accType = fields[2].Trim();
-                        var accNo = fields[3].Trim();
-                        var accBal = decimal.Parse(fields[4].Trim()); 
-                        
-                    //\conversion of string to enum
-                    AccountType AccTypee = (AccountType)Enum.Parse(typeof(AccountType), accType);
-
-                    Accounts account = new Accounts();
-
-                    account.FullName = name;
-                    account.accountType = AccTypee;
-                    account.AccountNo = accNo;
-                    account.AccountBal = accBal;
-
-                    AllFetchedAccounts.Add(account);
-                    }                                                                            
-                }
-            }*/
+          
             return AllFetchedAccounts;
         }
     }
