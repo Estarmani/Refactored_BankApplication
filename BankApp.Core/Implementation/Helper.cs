@@ -19,7 +19,7 @@ namespace BankApp.Core.Implementation
                
                 string[] fields = line.Split('|');
                 fields = fields.Where(f => f != string.Empty).ToArray();
-                //var trimmedline = line.Trim();
+                
                 if (fields.Length >= 4)
                 {
                     var name = fields[0].Trim();
