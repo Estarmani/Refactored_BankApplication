@@ -96,6 +96,7 @@ namespace BankApp.Core.Implementation
 
             Console.Write("Enter amount to transfer: ");
             var transferAmount = decimal.Parse(Console.ReadLine());
+            var MyFetchedList = Helper.ReadFromAccountFile("Accountdata.txt");
 
             if (accountFrom != null && accountTo != null && transferAmount > 0)
             {
@@ -108,6 +109,15 @@ namespace BankApp.Core.Implementation
             {   
                 Console.Clear();
                 Console.WriteLine("An error occured.");
+            }
+
+            using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
+            {
+                foreach (var account in MyFetchedList)
+                {
+                    writer.WriteLine($"|  {account.FullName,-10}  |  {account.accountType,-10}  |  {account.AccountNo,-10}  |  {account.AccountBal,-10}  |");
+                }
+
             }
 
             var activity = new Activity
@@ -128,7 +138,7 @@ namespace BankApp.Core.Implementation
             var account = CreateAccountServices.NewAccount.Where(x => x.AccountNo == withdrawalAccount).FirstOrDefault();
             Console.Write("Enter amount to withdraw: ");
             var withdrawalAmount = decimal.Parse(Console.ReadLine());
-
+            var MyFetchedList = Helper.ReadFromAccountFile("Accountdata.txt");
 
             if (account == null)
             {
@@ -158,6 +168,14 @@ namespace BankApp.Core.Implementation
                     ActivityBalance = account.AccountBal
                 };
                 GetActivities.Add(activity);
+            }
+            using (StreamWriter writer = new StreamWriter("Accountdata.txt", true))
+            {
+                foreach (var item in MyFetchedList)
+                {
+                    writer.WriteLine($"|  {item.FullName,-10}  |  {item.accountType,-10}  |  {item.AccountNo,-10}  |  {item.AccountBal,-10}  |");
+                }
+
             }
         }
         public void AccountDetailsTable()
